@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GDI Web Solutions — We Build Websites That Get You Clients</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#04060f;--acc:#ff4d00;--surf:#0a0d1a;--mid:#0f1628;--txt:#f0f4ff;--radius:16px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+@keyframes gradBG{0%,100%{background-position:0% 60%}50%{background-position:100% 40%}}
+@keyframes blobMorph{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}25%{transform:translate(30px,-40px) scale(1.12) rotate(8deg)}50%{transform:translate(-20px,25px) scale(0.9) rotate(-5deg)}75%{transform:translate(25px,15px) scale(1.06) rotate(3deg)}}
+@keyframes ctaPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,77,0,.6),0 10px 40px rgba(255,77,0,.3)}60%{box-shadow:0 0 0 24px rgba(255,77,0,0),0 10px 40px rgba(255,77,0,.3)}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-25%)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+nav{position:sticky;top:0;z-index:999;display:flex;justify-content:space-between;align-items:center;padding:0 48px;height:70px;background:rgba(4,6,15,.94);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-brand{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#ff4d00;letter-spacing:-.01em}
+.nav-brand span{color:#fff}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-size:13px;font-weight:500;opacity:.65;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+.nav-cta{background:#ff4d00;color:#fff;padding:10px 24px;border-radius:50px;font-weight:700;font-size:13px;transition:transform .2s,box-shadow .2s;opacity:1!important}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,77,0,.45)}
+
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 100px;overflow:hidden;background:linear-gradient(-45deg,#04060f,#0a0d1a,#0f1628,#ff4d0012,#04060f,#0a0d1a88);background-size:500% 500%;animation:gradBG 18s ease infinite;text-align:center}
+.hblob{position:absolute;border-radius:50%;animation:blobMorph 14s ease-in-out infinite}
+.hblob.b1{width:700px;height:700px;background:#ff4d00;opacity:.1;top:-260px;right:-200px}
+.hblob.b2{width:420px;height:420px;background:#ff4d00;opacity:.08;bottom:-120px;left:-120px;animation-delay:-6s}
+.hblob.b3{width:280px;height:280px;background:#ff4d00;opacity:.05;top:35%;left:5%;animation-delay:-3s}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;background:rgba(255,77,0,.12);border:1px solid rgba(255,77,0,.3);padding:8px 22px;border-radius:50px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#ff4d00;margin-bottom:32px}
+.hero-badge{width:8px;height:8px;border-radius:50%;background:#ff4d00;animation:ctaPulse 2s ease-out infinite}
+h1.main{font-family:'Syne',sans-serif;font-size:clamp(44px,8vw,82px);font-weight:800;line-height:1.04;letter-spacing:-.025em;margin-bottom:28px;position:relative;z-index:1;animation:fadeUp .9s cubic-bezier(.16,1,.3,1) both}
+.grad{background:linear-gradient(90deg,#ff4d00 0%,#ffb347 40%,#fff 60%,#ff4d00 100%);background-size:200% auto;animation:shimmer 5s linear infinite;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(16px,2.5vw,20px);opacity:.6;max-width:640px;margin:0 auto 52px;line-height:1.75;position:relative;z-index:1;animation:fadeUp .9s .15s cubic-bezier(.16,1,.3,1) both}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;animation:fadeUp .9s .25s cubic-bezier(.16,1,.3,1) both}
+.btn-main{background:#ff4d00;color:#fff;padding:18px 48px;border-radius:50px;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;transition:transform .2s;display:inline-block;animation:ctaPulse 3s ease-out infinite}
+.btn-main:hover{transform:translateY(-3px)}
+.btn-sec{border:1.5px solid rgba(255,255,255,.25);color:#fff;padding:17px 40px;border-radius:50px;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;backdrop-filter:blur(8px);transition:all .2s;display:inline-block}
+.btn-sec:hover{border-color:#ff4d00;color:#ff4d00}
+.hero-proof{display:flex;justify-content:center;gap:40px;margin-top:60px;flex-wrap:wrap;position:relative;z-index:1}
+.proof-item{text-align:center}
+.proof-num{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:#ff4d00}
+.proof-lbl{font-size:12px;opacity:.5;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+
+.ticker-bar{background:var(--surf);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:18px 0;overflow:hidden}
+.ticker-track{display:flex;width:max-content;animation:ticker 22s linear infinite}
+.ticker-item{padding:0 44px;border-right:1px solid rgba(255,255,255,.07);white-space:nowrap;font-size:13px;font-weight:600;opacity:.55;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ticker-dot{width:6px;height:6px;border-radius:50%;background:#ff4d00;flex-shrink:0}
+
+section.sp{padding:100px 24px}
+.section-inner{max-width:1080px;margin:0 auto}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#ff4d00;margin-bottom:14px;display:block}
+h2.sh2{font-family:'Syne',sans-serif;font-size:clamp(28px,5vw,46px);font-weight:800;line-height:1.1;margin-bottom:20px}
+.sub{font-size:16px;opacity:.6;max-width:560px;line-height:1.75;margin-bottom:52px}
+.animate{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.animate.visible{opacity:1;transform:none}
+
+.niche-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.niche-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:32px 28px;transition:transform .28s,box-shadow .28s,border-color .28s;cursor:default}
+.niche-card:hover{transform:translateY(-8px);box-shadow:0 28px 60px rgba(0,0,0,.4);border-color:rgba(255,77,0,.35)}
+.niche-em{font-size:40px;margin-bottom:16px;animation:floatY 4s ease-in-out infinite}
+.niche-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:8px}
+.niche-desc{font-size:13px;opacity:.6;line-height:1.7}
+.niche-tag{display:inline-block;background:rgba(255,77,0,.12);border:1px solid rgba(255,77,0,.25);color:#ff4d00;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-top:14px}
+
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;text-align:center}
+.how-num{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#ff4d00,#ff4d0088);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;margin:0 auto 20px}
+.how-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:10px}
+.how-desc{font-size:14px;opacity:.6;line-height:1.75}
+
+.price-card{background:linear-gradient(135deg,rgba(255,77,0,.08),rgba(255,77,0,.02));border:1px solid rgba(255,77,0,.2);border-radius:28px;padding:56px 48px;max-width:560px;margin:0 auto;text-align:center;position:relative;overflow:hidden}
+.price-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:#ff4d00;border-radius:50%;opacity:.06;animation:blobMorph 10s ease-in-out infinite}
+.price-badge{background:#ff4d00;color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 18px;border-radius:20px;display:inline-block;margin-bottom:28px}
+.price-amount{font-family:'Syne',sans-serif;font-size:72px;font-weight:800;color:#ff4d00;line-height:1}
+.price-per{font-size:18px;opacity:.55;margin-top:4px}
+.price-list{list-style:none;margin:32px 0;text-align:left}
+.price-list li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:14px;display:flex;align-items:center;gap:12px}
+.price-list li::before{content:'✓';color:#ff4d00;font-weight:800;flex-shrink:0}
+.price-cta{width:100%;background:#ff4d00;color:#fff;border:none;padding:18px;border-radius:50px;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin-top:12px;transition:transform .2s,box-shadow .2s;animation:ctaPulse 3s ease-out infinite}
+.price-cta:hover{transform:translateY(-2px)}
+
+.faq-wrap{max-width:720px;margin:0 auto}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.08)}
+.faq-q{width:100%;background:none;border:none;color:var(--txt);font-size:15px;font-weight:600;padding:22px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Inter',sans-serif;text-align:left}
+.faq-icon{font-size:22px;color:#ff4d00;flex-shrink:0;transition:transform .28s}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{font-size:14px;opacity:.65;line-height:1.8;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease}
+.faq-item.open .faq-a{max-height:200px;padding-bottom:20px}
+
+.cta-section{text-align:center;padding:120px 24px;background:linear-gradient(135deg,rgba(255,77,0,.08),rgba(255,77,0,.02));border-top:1px solid rgba(255,77,0,.15);border-bottom:1px solid rgba(255,77,0,.1)}
+footer{background:#030305;color:rgba(255,255,255,.3);text-align:center;padding:32px 24px;font-size:12px}
+footer a{color:#ff4d00}
+
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .niche-grid{grid-template-columns:1fr}
+  .how-grid{grid-template-columns:1fr;gap:28px}
+  .price-card{padding:36px 24px}
+  .price-amount{font-size:54px}
+  .hero-proof{gap:24px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">GDI<span> Web Solutions</span></div>
+  <div class="nav-links">
+    <a href="#niches">Who We Serve</a>
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="nav-cta">Get Your Free Site</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hblob b1"></div>
+  <div class="hblob b2"></div>
+  <div class="hblob b3"></div>
+  <div style="position:relative;z-index:1;max-width:900px">
+    <div class="hero-eyebrow"><span class="hero-badge"></span>Chicago-Based &nbsp;&#183;&nbsp; Nationwide Service</div>
+    <h1 class="main">We Build Websites That<br><span class="grad">Get You Clients</span></h1>
+    <p class="hero-sub">Done-for-you professional websites for local service businesses. We design it, build it, host it, and update it. You just answer the phone.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-main">&#127760; See Your Free Sample Site</a>
+      <a href="tel:+13125550100" class="btn-sec">&#128222; Call Us Now</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-item">
+        <div class="proof-num" data-target="47">0</div>
+        <div class="proof-lbl">Sites Deployed</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num" data-target="12">0</div>
+        <div class="proof-lbl">Cities Covered</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">$97</div>
+        <div class="proof-lbl">Per Month, All-In</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">48h</div>
+        <div class="proof-lbl">From Call to Live</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="ticker-dot"></span>Mobile Mechanics</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Med Spas</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Pet Groomers</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>HVAC Contractors</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Senior Care Providers</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Mobile Dog Groomers</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Home Service Pros</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Mobile Mechanics</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Med Spas</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Pet Groomers</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>HVAC Contractors</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Senior Care Providers</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Mobile Dog Groomers</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Home Service Pros</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Mobile Mechanics</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Med Spas</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Pet Groomers</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>HVAC Contractors</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Senior Care Providers</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Mobile Dog Groomers</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Home Service Pros</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Mobile Mechanics</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Med Spas</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Pet Groomers</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>HVAC Contractors</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Senior Care Providers</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Mobile Dog Groomers</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Home Service Pros</div>
+  </div>
+</div>
+
+<section class="sp" id="niches">
+  <div class="section-inner">
+    <span class="eyebrow animate">Who We Serve</span>
+    <h2 class="sh2 animate">Built for Local Service Businesses</h2>
+    <p class="sub animate">We specialize in mobile, appointment-based, and service-area businesses that need a professional web presence without the agency price tag.</p>
+    <div class="niche-grid">
+      <div class="niche-card animate" style="animation-delay:.0s">
+        <div class="niche-em">&#128663;</div>
+        <div class="niche-title">Mobile Mechanics</div>
+        <p class="niche-desc">Appointment-focused sites that convert searchers into bookings. Show up, get the call.</p>
+        <span class="niche-tag">High Demand</span>
+      </div>
+      <div class="niche-card animate" style="animation-delay:.08s">
+        <div class="niche-em">&#10024;</div>
+        <div class="niche-title">Med Spas & Aesthetics</div>
+        <p class="niche-desc">Luxury-feel sites with consultation booking, service menus, and trust-building copy.</p>
+        <span class="niche-tag">High Ticket</span>
+      </div>
+      <div class="niche-card animate" style="animation-delay:.16s">
+        <div class="niche-em">&#128054;</div>
+        <div class="niche-title">Pet Groomers</div>
+        <p class="niche-desc">Mobile grooming businesses with sites that show convenience and book appointments on the spot.</p>
+        <span class="niche-tag">Repeat Clients</span>
+      </div>
+      <div class="niche-card animate" style="animation-delay:.24s">
+        <div class="niche-em">&#10052;&#65039;</div>
+        <div class="niche-title">HVAC & Home Services</div>
+        <p class="niche-desc">Emergency-ready sites for contractors. Clear services, fast booking, and license trust signals.</p>
+        <span class="niche-tag">Year-Round</span>
+      </div>
+      <div class="niche-card animate" style="animation-delay:.32s">
+        <div class="niche-em">&#128149;</div>
+        <div class="niche-title">Senior Care Providers</div>
+        <p class="niche-desc">Warm, accessible sites that speak directly to families looking for reliable in-home care.</p>
+        <span class="niche-tag">High Trust</span>
+      </div>
+      <div class="niche-card animate" style="animation-delay:.40s">
+        <div class="niche-em">&#128295;</div>
+        <div class="niche-title">Any Local Service</div>
+        <p class="niche-desc">If you do service calls, take appointments, or run a territory-based business — we build your site.</p>
+        <span class="niche-tag">Custom</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sp" style="background:#0a0d1a" id="how">
+  <div class="section-inner" style="text-align:center">
+    <span class="eyebrow animate">The Process</span>
+    <h2 class="sh2 animate">From First Call to Live in 48 Hours</h2>
+    <p class="sub animate" style="margin:0 auto 56px">No long contracts. No design back-and-forth. We handle everything — you review and approve.</p>
+    <div class="how-grid">
+      <div class="animate" style="animation-delay:.0s">
+        <div class="how-num">1</div>
+        <div class="how-title">We Find Your Business</div>
+        <p class="how-desc">We identify local businesses that need a professional site and build a custom sample before we even call.</p>
+      </div>
+      <div class="animate" style="animation-delay:.12s">
+        <div class="how-num">2</div>
+        <div class="how-title">You Review Your Demo</div>
+        <p class="how-desc">A fully working demo site with your branding, services, and contact info — live at a real URL. No commitment needed to view it.</p>
+      </div>
+      <div class="animate" style="animation-delay:.24s">
+        <div class="how-num">3</div>
+        <div class="how-title">You Go Live Today</div>
+        <p class="how-desc">Say yes, we move your site to your domain, set up your booking form, and you're live within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sp" id="pricing">
+  <div class="section-inner" style="text-align:center">
+    <span class="eyebrow animate">Simple Pricing</span>
+    <h2 class="sh2 animate">One Plan. Everything Included.</h2>
+    <p class="sub animate" style="margin:0 auto 52px">No setup fees. No hidden costs. Cancel anytime. We don't lock anyone in — we earn your business every month.</p>
+    <div class="price-card animate">
+      <div class="price-badge">Most Popular</div>
+      <div class="price-amount">$97</div>
+      <div class="price-per">per month</div>
+      <ul class="price-list">
+        <li>Custom designed landing page</li>
+        <li>Hosted on your own domain</li>
+        <li>Mobile-first, fast-loading design</li>
+        <li>Appointment booking form</li>
+        <li>Google Reviews integration</li>
+        <li>Monthly content updates on request</li>
+        <li>SSL certificate included</li>
+        <li>Cancel anytime — no contracts</li>
+      </ul>
+      <button class="price-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started Today &#8594;</button>
+    </div>
+  </div>
+</section>
+
+<section class="sp" style="background:#0a0d1a" id="faq">
+  <div class="section-inner">
+    <span class="eyebrow animate">Questions</span>
+    <h2 class="sh2 animate">FAQ</h2>
+    <div class="faq-wrap">
+      <div class="faq-item animate">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>Do I need to provide anything to get started?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a">No. We pull your business info from Google, build the site, and send you a live demo. You just review it and say yes or no.</div>
+      </div>
+      <div class="faq-item animate">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>How long does it take to go live?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a">Once you approve, 24–48 hours. Your site moves to your domain, booking form goes live, and you start getting calls.</div>
+      </div>
+      <div class="faq-item animate">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>What if I already have a website?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a">We still build you a free demo so you can compare. If your current site is underperforming — outdated design, no booking form, slow load — the comparison usually speaks for itself.</div>
+      </div>
+      <div class="faq-item animate">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>Can I cancel at any time?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes. Month-to-month only. Cancel with 30 days notice and we hand you the files. No penalties, no hard feelings.</div>
+      </div>
+      <div class="faq-item animate">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>What makes GDI different from other web agencies?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a">We build the site before you pay a dollar. You see exactly what you're getting. No deposits, no mockups, no waiting — just a live working demo at your door.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-section" id="contact">
+  <span class="eyebrow" style="color:#ff4d00">Ready to Go?</span>
+  <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,6vw,58px);font-weight:800;line-height:1.08;margin:12px 0 24px" class="animate">Your Free Demo Is<br><span class="grad">Already Being Built</span></h2>
+  <p style="font-size:17px;opacity:.6;max-width:520px;margin:0 auto 48px;line-height:1.75" class="animate">We've already found businesses in your area that need what you offer. Let's talk — 10 minutes and you'll see your site live.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap" class="animate">
+    <a href="tel:+13125550100" class="btn-main">&#128222; Call German Now</a>
+    <a href="mailto:blindingblazer@gmail.com" class="btn-sec">&#9993; Email Us</a>
+  </div>
+  <p style="opacity:.3;font-size:13px;margin-top:32px">GDI Web Solutions &nbsp;&#183;&nbsp; Chicago, IL &nbsp;&#183;&nbsp; gdiwebsolutions.com</p>
+</div>
+
+<footer>
+  &copy; 2026 GDI Web Solutions &nbsp;&#183;&nbsp; Chicago, IL &nbsp;&#183;&nbsp;
+  <a href="mailto:blindingblazer@gmail.com">blindingblazer@gmail.com</a>
+  <br><span style="opacity:.5">Built with the same system we use to build yours.</span>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, {threshold: 0.08, rootMargin: '0px 0px -30px 0px'});
+document.querySelectorAll('.animate').forEach(el => obs.observe(el));
+
+function countUp(el) {
+  const target = parseInt(el.dataset.target);
+  if (!target || target < 2) return;
+  const dur = 1800, step = target / (dur / 16);
+  let cur = 0;
+  const t = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = Math.round(cur).toLocaleString();
+    if (cur >= target) clearInterval(t);
+  }, 16);
+}
+document.querySelectorAll('.proof-num[data-target]').forEach(el => {
+  const io = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) { countUp(el); io.disconnect(); }
+  });
+  io.observe(el);
+});
+
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
